@@ -296,6 +296,7 @@ textarea.inp{height:auto;padding:10px 12px;min-height:64px;resize:vertical}
 .edit-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) auto;gap:6px;align-items:center}
 .section-t{display:flex;align-items:center;gap:10px}
 .modal{position:fixed;z-index:72;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100% - 32px));max-height:calc(100% - 40px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);animation:fade .15s}
+.modal.wide{width:min(860px,calc(100% - 32px))}
 .modal-h{padding:18px 20px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px}
 .modal-b{padding:18px 20px;display:grid;gap:14px}
 .modal-f{padding:14px 20px;border-top:1px solid var(--line-2);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
@@ -658,6 +659,7 @@ const CODES = G.CODES;
 const CODE = Object.fromEntries(CODES.map(c => [c.k, c]));
 CODE.OFF = { k: 'OFF', n: 'Logged out', cat: 'off' };
 const DEMO_PASSWORD = 'Aux@2026';
+const APP_VERSION = '2026-10-23c';
 const CANAAN_LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAADyCAYAAADtAhgQAAAuHklEQVR42u1d7XkaydI9u8/+vrAJLDgBM0rAoAS8sAFcgRKwcAJCCRg5AYFuAIZ1Aho5AaH9d3952AQMN4F9f0zV2zWt+ej54kt1nscPsgQz3U3XmVPV1dU//fe391AoLLQAtHN+ZgVgq0OnyINfdAheJToAmgDOAfwG4A3936vo+j69PgH4H4AHAAGAtQ69QuInVUCvQs2cA3gL4AxAryCZZKGX43pPAL7Rq5KSEpDihNAAMADwjognzpXakMvECmUFYEYqaEWKZSxcqyGA5xz39wD8Sq+ssDy6vo2A7vcNwELdOCUgxXGqnAGAiwQ3ygfwKEhnbRGGT5/bkJJ5BtAXpLQBcAPgtoJ2ntG9PiQQ0grAPZGRqiMlIMWBK50PMaSzAvAnKYvHjOs8EOlI8pH3WAr3agFgVFKlNABM6Tqsxj4D+D2hH/dEhKqMlIAUB4AuKZ1Rwt8DUi8uLtMdXSeOfCSuiDSYMPoOxBaHIV2Hlc+UlNXWItX39CoxIzJ61ClwOvhZh+BoMCT3yRfksyJVwsSwQhjz8RGudLmQD+g1jbBuSZ2siDx8AJ9yul4PiMaZegA+WspmC2AO4A9634jey230AXynsVAoASl24GZNyOhmMHEa/vmM/s8KoWeRRD/huhOLfJYObXmm67MSGhMhZhHdRBDOhhTPmYOSYTLimNGMPt+mn3/QtRs6TdQFU1RPPGNEA7UBxUpmlssSwOTwPONl3GZEhiyV1Czhb67oIztA3RXKCUSIQ5QLLDeozR9gVvc2NC5TaJxIFZCiNK6IVK7JwAMyujdk0NLIBuI9z0I5nAuSmdE1bfKZFiQfEMGxq9eka30hgmiQe+YLxTaiNpVd1drSGLyhazL5XtPP6pqpAlIURJ8MuS0Uz00GSXwhEhojfolcxnl8oYpmAC4rJEwZoIZQbTNqW53KZEgEJMdtCA1WqwJSOIEDtAsyoo1QPPOMz/FK0SLhPZeCgOogHxDxDQTxNMX9LnfgFrURzSdiZfaFxkihBKRIwISe2EwON2RALq7RQCibNNfmSSgTIAzqVhm4vRJunU1MnRrHbogwOG+7qlMxPivhfiqUgBSEDhHDtSCRNhGSq2K4oNf7jPv4MEvfG4RxGb8CEuI+cF6PT9ceWPepmgC6dN8ZjVlgKcaP4t5Nat+DqiElIIVRPSuYAO0A+QO0LZjVpST3q0EGyeTTg1kK9+h3RRQKB5llH8bUh2eEAWqbAL5UQHhdIhJf3PeGfrYV4zO1ZwyTZKlqSAnoVaNlqR6O+SwLXOuDuMY2gSTYUNnF28Lk8gRwT1iU6JMhj60+3FrvWxMB3Ah3KCASKTJud4gG0W8cFeNtTWSoUAI6KvRjVM8fKB6g5fjPfzLIZ0P33lrqgBUQu059B9XzRRAOk1pWHyaCBPlekxxK6064WBBuVx5XdS3UEI9dUfWnUAI6Onwiw20KElqWuF4XZrUs7jpTvNzZbmOLaNb0Ask5NFdEAgPr+q7L3Ex4HKi+JiXYSiGeiUU8PvX5EsVziW4FGbZhyowolIBOEg1E6+pMEa5AlU3GuxDujw3XzaVMQmeIT1gEKYQHmCAzk+fHAsptS+QhA9RxBMBkdy0UUw/VJDFKMlyIPn/Sqbo/aCJiPeggDIyyEhmjeNaxjR+Ibr2wyQfIv8XiznJz/oaJVW1QTS0gRova1hNE+hUvkwnHJZViFiaIxuPKlhlRKAEdDPn4MMlxHtyrCWZhSAQRIFx2lsphWpB8pKs4tn63oN+tayYACLKrkqxdxxMwK4VKQuqCHS36FvmAnuL9iq7PT4t7y4iKkk8DpsyHTT4BXa+uqoQPiCZIAmZf1yfsJkgsVaqHavKjFKqA9gL5NN3gZblRn576RfcoNYTBtokY5D3zbLHoE5mNMt63Qr560EXUD4/VRpCQJMEFEe5zjd+dVK0B3Au6KVQBHRz5zISa8BHGTzYk730Uz8odCFJYI1wNy0M+HVIW30XMg693k0A+rAqqUiMcmL8W7e4J4mlTP2XtnzG15TsRVx0ZzTI1oV1xnxVKQDsln0tyaUCTegJTRAswiYB3OY3pg3C/OjAB2jTyaSCMDz3BJBC26f68nH6G8MgeVhwQ7VzBrEaVNcgOooXJRtTuZ5iqhwPq1yXCUzUGYtzaMGU3nqhfVZLROqbP6o6pC3Z05MP4x3KXQAZzbbk+N8guptUS5NAjI22SsZwltCuprvJXRFeX+jDL0p4gg5+QfGJGXlzBxKniXBz++wJhcmMckSbVil6h2lM0ZJ+ZMDUwrQR0cJCGG6dC+LSJAV4uJ3dJGfVEHCStqh/HTNgwmjHG0SGVNLDiKCu6dty2DVlR8Ybu848gIJQkIfsEjKTlbkmwzQyD3wUZyXFRElIX7ODQcYi/SDfMxiPC5Dop+a+RnJ17IdSPNIomqYfv9LsRTCCV90udIVztiTMgWSR+ktDXbUF3jAO7TD5jJG/dWFtuWBriCtdLBTel/n+hsSziRm0R3bi71CmvBHQoaMGsmPgp8Ze/hNpJwiMRBJcX5VjRd5il+w5enm56T0bBsZw2TLH6HsIcoUmGCrgSxj50NEhXEurHqKbbjHtwasH7nERhk5EkMg5mFyGjZ0TPS7vTqa8u2L6RJz7AQdcNwoCqCyaIFqL3hfJJAmcS5znWuCXI5MZSP7YLltR/ID7vSCY0+ni5GTatTa5umMu1kk6KzTteQ5Qv4q9QAqoEXIN5Q6ojawLztol2jphE3IkYNgIR1ykS6+D4lE+uIBwJiBG37cMmpynCfWN58ESfr9LQs8joPw4u1gQmdcCD5gipC7YHTITL0nN8erI7cJ7zXgFeZglDGDyfkFGEfK6EazEsOBaXiMbAJtRmdrkGBcinqBuWhTWN1RmieUXspi3oQXGH9HPUFkLV6fK8KqCdoivcoTxPZ35yuqiBPtyyk5nYPud0u9gt9ElZJZ2k4aKA4pQQt2tYQiFINyyPaiyCDqmiAaIxto1w05YJ7qdf4KGiUAVUCA1Ek/7yuAb8pD1LMYJP9AReZJCPBxNU5Z8DIgHXJME5TBD5toJxacYomDLuSZ7VsLJ4pofCG0RXz5owK2tSGW2JXDekICdqGqqAdgGOl6yQPx9EPtFlXs0oJiYR0KT/n4g3jGES+OTnBwhjRF4OVcRqjAksSV24KCDOxG4Lt6RXQCEmuYhTJCdZ1o00ZTQT3wu74nr+mBJQbWBj4Kdekac7B6JvEG55SMtOHuJlflEaIXTJWEYxLsRn0d4OXm53QEECkm0MYLKapTs2LqGw4jbd7gsdMb7NmL9v4LYYoVACKhSPWGXES1wm8BIv83h8mIzdbUx8RiY3uiiSuDPTpSpitZS01cGFgFyymieIbjQtegBi1omv+0AfJvu6aY3xmZqLElBdrpePfAHHlnCxbAn/mQxzHUNUceTjSkBZqgg5XIa4+7VgjtsBXuYOJSmkoiTE1zhU434QLmcR11yhBOTsenkObgDHZS4QTRrciAmaZEz24YH2ZM5LQEmKxTVWZN+vD7NlY0P/f3QkkKIkdEhumN2uJeo75vrVQVfB4ifZtXjSrzNkOR8dI2vbsHvyK0xuiZcyoZs1PUnPRXtmoh2uK2j2iR5tuAVd54gmKubdxrCFybsZHMi8SConolACqhTyFIjbBBfLLuzVhCmk3qY4y1wYUyDcI0k+PswRMVWTDxd5D4SxNKmNAaJ7p57wcq9U3IkeedpXloS+0uvFAcyJoSDggL6ruZqKumBVQyYcynhJ0tL3htREVv6LHVTNU+KiiAuW1A/7PXEraE3rfexGJuEJYerAikj5uSJ37BDcMNdyIoqC+EWHIIKJMJRHcp/+HeMGuO4hYvxF1+DKg0uUL/KVFadg5ZLkMq0EwbCKa8a8r4n0zbBxf/OJmP4USmEGs42k72DE7IYN6N/tjudCnsC7QhVQpepnQfGTpmWw92RI24LXZndnlIN88iogVlsBGc+WjOmM/v8WZl9UHAJq41/UxqeM+52LPrZjrruh8fwbZoOtq8vJ6mmF3a6G9ZE/8K5QAiqF7zHGE8Ak9ZV1Af6x/p+VEFiEgPowwdsFwiC4h+Rd9UysD6RWVhW4Fw0ipXd4mU1s3zeLhPbhhk1gFiFWNKZrNQ8loDoh4xSoyd9/QnodnSIE1CVl8Bu99hyvGaBcOY88SMsmdiEhVnR1u0C6xK4EdFDqx3a9yhirJLi8dXL+EbGWM+FCeQnv31iuXtOKzUz26E4MEb+HLY2EeOwCRE+DrZoklzCVJXd5OqsS0CuHdFsAs/QcV8BqRa7KAu6BY1tdZW2HaJEhnCN+71hcvOaNaKtHn70W5FPnEctF0EUYVPZEP4YJxCjdMA/VFwOT308APZRQCWjH4LT6DRmsVCgtMua4ExgCZJ/aKcltRQYkn+QdQR7djHgNq5q/YM754gDzCmYbxxtEtwlc4XADqEOYvKs0dcgbXYtUWUxzuXSJXQlo709iX8Rl0lZcOBeIg6tNy+2xi1jZ+7vuxb38jHiNL8hmlhIDsgkUMCs3NzicjZxZRDBD9OTXvqXWmMircsN0iV0J6CBwJ4hnLIzYdcXpfQIZPeDlMn5avOZRuFPPCTGguDZdwdQLQooBH4srLJe+e9ZYcFmTsm6YfZ8+dIldCWhPT147tsArVb2ckzKpiJXtsgHm6J0bR5JIIiCpsJDhwhwLbGUiVwurcMMm0CX2g8Jr3gs2Eu4OP1E56S5vvV8u7+kher56AHOA4BsiHXaTyk78uUU+oyMnH8Cczy63bgzpZ94bVmRzaoNUqaxVdKbkowS0T3yg13vxu2/02i04yX1LAbURTe4rSnBxT3JPuHEeTmfZeIuXp24MSRltaEw7Oa6nu9iVgA4OfNroBtEl+Ad67RUkHy/mbwNLKbECapVo+7Ugnx5Oc9k4joT4u3LdIT+E7mJXAjpA8AS2i3KtYeJCeZ6yM5jNpRDXBl6eceXTa9G9TfNXQD5xJDRFuJ/MxQ1rIIwZzcR34UHze5SADgQDK66AGBXk6ibdwZyWKktbjMW9pNphN8wr0O5P4nP9V2JQlzDB9gvh2iY9IFr0fv4ubhAmfmp+jxLQwblfy5i/cxzonSP5yJMg2uKJuxZqRz6x/6LXvHGmriC1EV7X0nFfuFJIccP4fR70/C4loCNwv5CigLJcpCu8PB/9nUVi9zHG8lBQAS2Fu/fa4hjyUEAkuGETRMvHetD8HiWgA8R5ivsF4da0kRwoHsIkAMpclXOLZBaCbPhaHGdqIl8guglT9vU14tnqe5sUjy6xKwEdDVpCeTykvM+3CMUmn1mMGukKkngWT24moQ/iGquU66dh+MpjGXNEN/Z+gC6xKwEdofrxMwyZpbsdB+oiub7xeQKx/SfGZeDrv83R9qm6FACpICbwHnSJXQnoiPDOIoAkxMWBuGZMHPkAwO/0+s36/RImga5rKaCsONOEXgOYLOrXDjsepEvsR4zXtheMC4/14H5CaJM+48MEOG3ikPvKmjHqSm56vSRXMODvIOH+DUSPz9Gn+0t3tA1d5VIFdCRowCzjurgyrFJGeHlyaZJrt0pw7T5bbphLwuMYJqak5PMScyUfJaBjgkevvuP72Q2bIvskB5aRfyZc61momX6KmyfBQWt1vRRKQCcAVilPju+XsZwN0usWJwWgJXg17N/0ygmJ7xLcC1U/CiWgE8Jby/CzcC1+TiMfmVmd5tpJN6yRoYA+WJ9RKJSAjhxcyvO7w3vvEM1Ubjooq4eMa65h4koD8bNnvU/mKs10iiqUgE4DbNRZAWi5v2tlkUwc3sW4bEmQWzO2MCthcl/YQLhsuoFSoQR0AuCVpk0O8hkJFygtYVASRhYWwqVrwcSjpBvG+8a+6vRUKAGdBpqWoonDEC83l2ZVMGTlEsBt79FakNAAJh7FBNcQSm2h01OhBHQaYIXxPYV8ON4iT8V8htk4Gpevw9nPDznawsrmA14GorPyiRQKJaAjVkB/Z5DPDC/P0korUJa1sz7JDdvArJyBVE8DJp70oFNToQR0OvhXwu87SN5cyvhmuUmIcZfyEIbcIX+B6GrYmXVPhUIJ6IRcsAeLfPwM8gGS40CDEu6SPGJGXt/LcBUVCiWgE4A81G+F9CJfvGzfRrSAGLtLfxa4/1K4YW+EwmJXUXd2K5SAThQNIgAmn56DgvFjVBD/XHS1aiaIzVZUCoUS0AmBlcWvMIcHupKPVEFvhYJqk4opqlburbYxNjotFUpApwWPXq9hTkwYwj12s7JUj+v2izTIHfIKhRLQKyGiDfIf6CdPsmjA5P+UzVa+j/ndk05LhRLQ6WJWwM3ZIrpc3qtAAXFbbPxPp6VCCeh0MSbX5zvCvV9DuB2Pw2RzS68Byh/9InfIKxRKQCeOG5gVrTZMnWYXQvpLKCCgur1aWvNH8WrxWorSc4F5WQC+izCY3EV8neeAVM83oX4C8fcB4o92zouG5RL6yH9emEKhBHTA4NMwPCQHn10IqS3+30R1G0a/wOQBKQEpXg1+eSX9ZPJoprznEdFiZTYhtTMUUpns5a+CgJo6LRWqgE4LD0QiPRQ/XbSDsEyHl/D3TUlC+iHI5yedmorXgJ91CJzxHKOCJPk0ScVMEa5s/SDX6grJZ39JLCyyUyiUgE4EP+j1rMQ1OinuUUDkM4ap95NGSN0ENwwVtFOhUAI6MPASerPENdICwx5MUuEfCPeceSmE5CNcmXtAeLpnF+GKWkDXeKtTU6EEdHr4V4nP/m79/wbR5fMmkcsDwqX1Z4RJi0xIbUTzjoAwJnUtCKmpCkihBHR6eChp2A2YpXkZqxmJn1eCVAKYI5gZa4RB7EuENYDiCKkprqFQKAGdGIq6YLJYvCzRuoQpZuaRKlrRfRYIYz6NhGsmERKTUV+np0IJ6DTwKEiiCGSxeN6tzpUMb2HiPx8QbuW4of8PiFC6DvdgQmKF9V6np0IJ6HSwodciS9ycJPgN8UcqXwrls0QYC/Jg6v34AD6lqCGJe+ueCoUS0AlgZSkXV7Rg8n+WiB6pLMmsB5Nx7SMMQntERiBXbeWghmShsqFOUYUS0GngqaAbxvEfX/wuiCGzLcK4zYbucUe/+xhDThNHFXShU1ShBHQasI9BdgXHYuTpF0kxpWdEj3e+Eu/3YOI710SISe7gVKiqrk5ThRLQ6SigvDvN4+o/BylktoRZGZvCrGZtEeYEDYRKWgmSgqWmOLA90WmqUAI6fvDm0CbcKiACZvvFBtHNpXxwYFJe0S2iJ652LIJqC5eOkxftNt2oCspEQ4dACeiY4OdUQbwSZVc/lIcVJsFeGWtYCueclNKGSMZWQ2tVQam4ozHTjbtKQEcDJo53ju9n5RF3VntgvScOPUSDz3FKyYM5pXWKaPKiJKgrna7/jyHCGFubSGioQ6IEdAx4yKGAkrZf2ASUtqwftzJmY03tsZMX+/R5/v21uhz/7xZzkH4j3Nw7HR8loGNQQBt6cmZJd7n9YpuiptoZ10laGbMxgQlMN2G2cszE72avfL7KY7UBU3GAx9aHe3xPoQR00CrovfX+Ii4YYylISK6MxZHVmaWGVohmR79mV2wpCH9G6vGWlOpGEHhfTVsJ6FDBhb+ykvyYoP5M+Pt3RwXEmCN5ZSxODfVg4kdT4W5M8ToDrxNEqwTcWGq0banHiZr34eO11IS2ZfxGkEfc4YItoXDS6jP/4/CeOAXG5OIh/WSNBsLYz9j6/Qb5j5c+Zgwt93OKMMM8Dp/EePkwsTSFKqCDwBYmqJy04TNp+d3GKocbxujT59qIXxmz2/oRJnmR0SRF9RqCrl2LfDaW+rHxkdxdJukVdKleCejI3DBepv+WcR12w/JscN3SE51jFnc5Yh+SED0isFMmoQ5eHv742UHRzAX5sGs2VHNXAjoULIQRxz0d47ZfxOEv4crlwTNMoDRtZcwmrj8sNXTKJNSFyY+S6meaY4x74rvWpXoloINyw2YJKqhLkz5AdoyliAvGeER0Zcz1Cb0UxMMkdGpuxlCQTyAI9wb54jlM2rpUrwR0cLgXk7JRQP1IF8wr2Ia5IMI8q1ucvMiZ0m2YgOuxY4LoauG9IKLbgte8hS7VKwEdGB5hCn/JYDSffvHN4Rpyg2tRaX8pnvZ53albRCsvLhCuAh0jGkT614KQxwjL3LL6Kft9t6FL9UpAB4TP9HotjIDVzMLxGquSKggwK2NFSGhttXWM9FpDh4g+kSirlBHC1ayxUD/zilzvM5g40jXMMUoKJaCdYyZcmC6yt1+kuWFnJQ1jKFyEac7P34ufpZsxOXDjaiDcbrIgolkRCc0RxmlY/Qwrvq8u1SsBHQS2QgVNEF/9MAu8EvZbybbYK2OTnJ8NhAKSlRdXOLwl6Ab1L8DLXKwLGoepUISPNbRhjmi2+SGOkxLQK1FBoMnIxvCQ4/OrChSQjFOMBHnkMQhu81uY5Xo2rhkptX0bWIPasKL+NYVqYzeWCVQS07AmhcIHB+hS/Z7wGrdixOFOGP4G4VHKruiQQeX9nEt72EVw2XLRJ0MKEE2MnJArw8YekMs2xe62KLSoP7Id8gFwSUZ/jjAJdIT4QyQ3RLR/0WuVymgCEwtc0Xiu1TSUgHZlIEGJycd7wpoVGjXvGduQinG57g9qg2eRVoOUxQWiSZMLhFnhixrIqEUq5gLJAfoV9VHemxMQ5Xu+EznFkZKPMOj+jcasTD+6MOU+NkSESzUPJaBdqyB+Mt87PmWZLHoVPpUbZFxegqGm9eEGyTGkIZFCL4YMWF18L9CPLrmhb4ks2hnv31Df1gljye6jVHQdunbaPVYWIeVVMS2YZE9kjKVCCajS+EQQ85QNEAaqZykEwIY/RvFkuST3zocpRnaZ8f4hTAGzMwdDy1IoG5gYVxJ6KX/zU/7uxbiWUv20YVITvAQ3tEX9fEeE5KW4bd+ImFyJVT6QfOiueiWgHYDjADxppezfkKvyOcYY+HNpZSLKuAW+49PYpdRI0ufYgLv02XbOdrKrxPEZIFq9UJLRCPF5Pax+eByZBFzIV47XOb16KW7bo1B92xRC59W4gEjoWc1ECahOFbQi47uhyTdAGDz1LGP7LIyIScJH/nPHXMDKJs14GV+ozVWosZYDEa1iDFjW5OGxmmYoOe7jBibmxeO6QfEAf1m3jXfktx3HX6EEVAp9mGVZqSK65K6MLHk/Q5g3xCrlp5ra5boyxoZcFxlmGftckPWMiNyH2a+W1KbvgvgnMb8foJqAcMsipDi3LbAIKaC+DES/xuqSKQHVBXYF4gymAbOkHPc0zeP6FG2XVAlxBhbQz80dGskVTG7PBmYFyaUCZJz6sdXUAmF+Ux2q1xNuWy/hfb7l0q2gS/VKQDWhBRMATXNl+gD+jWjSXID68mxcV8ae6D27cBcaljrwiVDWjqpNur1xY70PQmW37R3CIHeSGyqJVlEAmgkdjzWi53El1Y9Z0lO5bbltHMi+Q7XHKrvuGeO9YXU/XbpEHkw+N2S4a5jDAzlukuQyjmGW228TvouVuM4u8Ext+QNhCkCb7j1FdFWwSd+71hdSAqoctzBL4FkqYg2zJyyAiQdxASzeBtGoyDh64vqTmPdk1byuAhMR22H3aiIUxEyQ0jJFPbmU2+D9ehd7mgtrmgMfSRFJN+1G3TAloLowFO7DxCE+wwTEwU0Z15jR3+5Qfl+TPOwwbs/YWrgt/Rrc0yeYbQszRPN0WoKAs2ruuJbbkCV09602GqKtWlNICaj2J99YGHoacbDB9wRJXAr5HpCxjWDyT4Yl2jYXLlhcNcVFDW7YkNruEbEOqI9bYZxLmNIaowwicy23IU8y+bDnObEUqm+kJqIEVDfmwp3wU9yoNUwSYMsynjnFEnqI7r6fIdy/NSn4ZP8IU0vHbtt9hW4Y1+2ZiXt5Ma7VVJBTH+kB42vkK7fxnx24lS5uZ8+xfwoloMowhlkVW6a8b0Wv7YS/P5JiaFLsgFXRNf38pYDLNEJ8NcVnMpQmygXC0wLNEldCEfQz4iIt8V5XF2aJaPG4XaMv3M4xNCNaCWiHkKtPPSSf5fVEr+cO15uQKhogGjReIAxaX8EtaL0l49jg5coYX/f3Ek98H/GBZts4p4IQsxTNtVCUeTa9cn92HYyWQfUZNBNaCWgPkIHfUULc4m96zVMdcQmzlD8VT3n+2WUpf43oyhgXpv9a0G3JCjSXMc6uGMdhznZ9Fv3ZVdEwDjo3SQleqikoAe0LS5ig9CzGgFgBFamOuEYY0/lVuFVMKD5de5hieJIgx/Re6ba4rrwNkR5oLmucEzF+eZevnxF/kkmd5OPDnDzSUxNQAto3bpF8lheThlfyHnMiMQ9mKZ9/DkgVtRI+NxUG3oFJDzh3MDaXQLNNyHmMU251KHrMDqugXaTw5wmqK5SAdoZLRFefOiIesxGuSRVuHy/ljxFdyg8Qv5T/UcRKfJgEyYsMYlghO9As8Qn5V4QmwrCLJu/JeFmdOUGyHlAPGnRWAjow2KtPHUsFvanwXltSXklL+d8RXcqXbbsQqqyVQAo+sgPNtps2Fu6ei3EOBWGVOWRwDZPoWJcbJslnpOSjBHSI2MKcKSVJ6KkiNywJj0IV8VJ+G9GlfA9mZawtPisN1g40L5AcaJboWC7o3LHd18KFKuvK3DuouqrIZ65TXQnomEioSX97W/O914gu5UtV4NM/+3TXd/TaRzTQPEK4EpdFDA1Et1m4Vn8cEhFukP/QxTQ3zEO1x/Uo+SgBHT0JjWpwwbKwhKn2J5fy7a0CAzIyeRKpl8PQfLhts7BJi9XPDaoJ5G6FCqtKBSn5KAGdBAmhZhcsSxV9FOSzinnPSKiIM7gHg++EYhrmIJKschtFUTTHKY4gH5R8lIBOhYRm4ndXe2oLu4HfYVblEKOG/kEYB7ojd66L+DyjK0S3WTznMG6XchtFVV9A5NYvQT4+THB8oOSzW/yiQ1A5CV2KJ+kUYSyo7vrBXOf4HeILr2/wMiAtlRqrtWvx/hWR0/8Q3QOVZ+uEa7mNoljQPd4jf1VCeeTRBrrUvhdoSdb6MBRqaIVq6wc3LMLxEoyTi6o/I3r0sGxTm67xG8wyfxJWMEfvMEGtU0hxRQbeQ7XHKEsSWQnVtz2A70ahCuggMCdjXcLUcC5TP5jPu/o9gXB8MvKsM9On1A6P2hJHDh2E8aFZgloaxNz7CeFeuCfqa95yG0XwDBNId3GfGqL/TNIjaIazEtCJ4lEYukcT3vXwwg4ZVdJJDSuYEz/znIn+P5gTPzx6PYsxbOmOtWHO6TojtcRbRVjhJCmnH6Qwvtfk4txTOy4yCMg+MkiPXFYX7FXBPqxvaBlkx3KrmtbnAyKarzkJh8EuGBte2rHPsq1eBnG0hBv3ltw4L8ONY7X0gPiDDfNAnprRTnClrhA9MqhfoypTqAI6SHwktTITLhmfFpoUOJZxnKpjFM9kiL5wSS4R3Wbhsg1hTf8ehavo088chJbHJHtID3r/RWrJlSDWNE4D+ndrkdNcqDMfuqlUCegVY0lkwudojS3CkS7VLlZkHmHOXh8JMgTybbOwlRbomrcxMRiP3DdWS70UN24Ft6D3V5gjtG8TVM8Nqs1DUqgLdtTow5S+YIOtc7nedsEkhogGnH0UO9ZZqp92DtXWEa7bW6QfBsjts4PeAcxBkhdCZfkwByUqlIAUliKQqzJ1PqnTCAgwZ7Cz61SkDXwMs2ug3YXQ4oLeLlDVcwTQTOj9ghMXezA5M1OYgwx3hTtLcUyRP7t4iGrKbdgu4i2R2TnCapFtus8NwtjPKuZzM3qfko8SkMLR0M5gzlFvw9T5qZuIhkKBDRCt75xnp3mV5TbSwAHvKcLYUNtyzTwkl5BVKAEpUjCHqfOzCyLq4uURypcwy/O+IwkNUW25jSy3dYIw5sNB5oBU0Tl0O4USkKK0WzZJIKIyhxjaaMFkZc8QjQv1EX/WWBIhVF1uI6m9dzHEM0IYwNa8HiUgRU1EJOtBlznEUJLGEqa2zzjm3j1HEqqr3Aa3c4gwuM1kw+1h4pnrVFECUtRLRLdkbHxEDxA9xPAT8sVrOBlyg+TEPCahDcyWjUYMQdRRbqMv1M4MJj9oJlwtJZ4TgC7DHydaZPisCBgBTPb00vrMhNTTRnzGg1sNaF8oj/OYawYoVwGSd/e/J2K1+/SZ+qW5PEpAigNDP8FwgegO+XNEy3HkqfwXt2+sTLkNzohO2t3PRHoPDSorASmOiozeERm1U94XwJyAus1x7YVwhSBcwvMMtdaGqTl0hvjNqisiSiUdJSDFibhpaVUSbaUEoWI2MMcLSVzgZTH6G6GwAOBfRDJNZO+Kf0CYy7OA5u0oASlOGtLtcSmbUSV8mE2lTyhfgkNxItDd8K8HW1I4jwku0huhkt4i3PaQB1w/mtXNDyUahRKQIgt2PR+FYmfQPCCFQqEEpFAolIAUCoVCCUihUCgBKRQKhRKQQqFQAlIoFAolIIVCoQSkUCgUSkAKhUIJSKFQKJSAFAqFEpBCoVAoASkUCiUghUKhUAJSKBRKQAqFQglIoVAolIAUCoUSkEKhUCgBKRQKJSCFQqFQAlIoFEpACoVCoQSkUCiUgBQKhUIJSKFQKAEpFAqFEpBCoVACUigUCiUghUKhBKRQKBRKQAqFYo/4pcJrNQB41u8CAOsjGYuu9f8NgOc9tWVS4O88/ucxfwsAPO2xP3nRAtA+4rl0yP3pJswR2a55zO87AM5i+gEAD0X789N/f3tftCMdAAPqUC/jvStq5DcAywOZEAMA7+jLaGZ8Idz2BYDtDtr3T9b3JkhnBOAihvzjsKE+fD2Q70HOpQua4FlzyScyvT9gQu2LueU59OeRvpdd9GcC4DqjPeeCrC7IVpoO114B+BPAzJWMihDQkDrQLjgAGwCfAUx3ZMw2+3+gAS2KGYCbmp9eWQQ0APCeyKcoAurHfE9GyuT5ocRc2ncf7P6MyWAPuT8uBDShf7267SQPAfWJNNoVDQQT0WQHk6MD4LbkgMYN8LgmEv1nh4bj00Nll+7AFRlBs6Lr7ZuIjqk/WQRUJTbUj9ukN7gEoRsAvpBEbFfYuCYNxBMRRJ2Mv6qYfEBP74CI+ZjRo/Hp7OBeLXJnpxUaK2hezujajR278k8n1J+q0aSx+ZLUjywC6pCRDWpspEdP4aoNuUFf4HXNA7wAcHfkJNQkEhrW7P7W8SCwyTTYEZn2qT/eifSnTgzIxht5CKhDH2ruyAAWFRpAg9re29EAj06AhNitrGOyD3c8l+om0yHN1131x6+5P7sACw0nAtol+dgGUFYJMfl4O277qZCQT65FlUphticyrcM9Hu6hP026Z/cESOhTFgE19kQ+cuI0Sn7e21PbR/YA7wEBfX9Tekr7BSb7vKK2dPZEPnUpug6N676wPAB3zKd5dUM/Bzk/P5ZE+nNCJ/OQz4ou6iHMT5H/PDJKVyPYoNzK0hXyxas2NEk5z0G2vUm/nxUY4P6ejM0D8AZhHsdHAH/A5DmNckyWXkV9mFc8l8b0nn2QaePE+pP3oTai+5/TvJrQz2+oL7Oc8wLAy2X4PPJyRQb/6Pj+LtJzC9hvL5qM1aJruE6QG7jnIjUQBrPHOb4wrwSR/pNzcvQdx61BfR45XvdNiUk7gfsCQJG5dJtD6d6gfLpH3f2Zw32VuUx/8vSDH2yuoqBDAsalHyMA859jJqcLpgizVh9zdOSRGDPOiBdETGUyQV3zMFY0cSc5CGJLiqJHqikL7RxkVQbcl+cc/bh0JKB2CRXUyjHJi86lsxzz9Rrl4lq76M+bHP35gGrjdGlq/jKHnTzTfFw5ficRF2zsaMAjMsaiuLUMYEySbltygowcDbYM0T3mGOAPqDeHY0MEUWTc5o5K998lHgbYwVz6CPds8DLpGIfWnybqTyacISWBMOMh13d4ULcBdCQBXTiyexU+6JwGulewk0UmSED3K5u5vCZXceMwSUY1TpCy20HGDjGh84KxkoFj+6uaSzeO5NAo2J+R43jusj+DGh9wm5IKfu34+QETUN/Bb1uVZPe4gX6s6FouE76oWkiSmi6T8kNNEySogLi3DhO9ifxLvy4bF31UuwVnAreFjiIPBJfP+BU9SPP0p4n6EoQ/V2Arc4cHXJcJyGVD2BUOE32HCT9D9TuNlw6TpI16lk0XO7xO3kC0y1wa1jAmLtf8vcB1f99Tf64qGuui7ldVRJaGHhPQmQPDP+Iw8c5R7tcBl6f4eQ33/bOi62wdSbRKNepcqqGA7M8ynF6B6/b21J9nh/7UoYBWFfbnKesNTEBexvvucbjIIs8F6tvp/YjsgPTbmlywqvC9wmu5uGtfa5wLXytqY573ft5zf6pW2JuK7SOTgFwG+eGACai3xwnvMjZvarhnlYT6d4XXcunrssbvYulgQG8q7M8G9RYRW1Y05geLn/cw4XeN7zVf/1vG3z28HmS5a/4O2rAq2cY8713toD/+Kc+vnysYgENH3bGrHxl/b0KxS/zY4b2+63DvRgEpFFXgaQf3+GuH/flbv9L6Cah35H1s6Nd8MDjbwT12WbLirX6lu1FAx2zEdfvIb3QaOaN5Ivdg/Hpi/dkLAa0c3jc44D5sMv5+XvP930HByJpLXs0Ps0bFD5ys/vSOrD8HSUBbZOeVvD/iSf97zfcfQMH4vufxGmh/jtMFe3AYiNaB9iFrlcurMS4whK5ySTw7KNIPNd7/wx76c1Fjf65PfcIwAX1zeO/8QPvgsp9pUpM8PvkJUsP34aGevVP9mtyVrIdzD/XVnm6/FgJaODB9D9VuSO1W5D8/O7iQVbedn04nP0EKwCXzfIpqYycN1Fd7el/9mb6GycIEtHX8AqcVPb24dGNQkXt079j2qvbNDLGbiofHiKXDA6GJhHOiCsKv0RWeO/Snjeq2mOz7UIi9EBDgvqluVlJN9MUA80Qsq06mcNtE51dAeEPs96SHY4DLXPLIaBsljfUL6l8pcnnA9ZByAmhO8vFey0SRBLSGe9kKPm61lXNwPyH+QLdpyS9v6zjpmfAmBSfHJyUfJ9zCbcd+j76PIsqUz67bxUrR1LE/gwr6472mifJzwYHmwQ4QHsbXzxjYT/TecU1fHohUXNt+jXCJ1dWdHMIcsaJwg+tYeTS2d44PtBa9d7VDY92eWH8OBr/EDHQ/pw86gilb6cc84fLAE0+BIjvw+3DfodwmNXONcKXjL0T3Kp0hTLUfQJfai2BJ4zvKOY9WCAuurWA2lv5Kc+L3PRrpqfXnIAkICFeVxgVdjV4FbRqjePkPrtWcp+1t1Fs8/rWroLOcRuYdsFGeWn8OzgVjzPdklDOUzzeaQ+M0h4ItPZRWJ9afjX619RLQPkhohPAQtCpwiVeSR6EktJf+eCfUn4MlICYhD9XWILaxoQk6r/i6fMibPq0Oh4T8HdxrF9/3eof9edUEBJjjVutQFDOEMZi6qhbOa376+tD4UR4S4qO56yCJDcI0ks8n1J/xqZPczzkG+yPMylFZ8Fnwec6dLopnhIHDUYVKLkC4OnYOLcuZF7f0QKsyTjeja05OrD+3qoBeSs9LhMvSY+Q7IM+nz7QRngW/63PG5giLh41KPFUWRDxvUO/pDqcOnkdt5Ms9sx8CU7rGJfZ7cMKp9Wdn+Om/v1VS6qdDpGQX/+KdxId4qCGfYf4WplRozyJMbvuK+hKn1loObljeJ/Ok4uuloYv0om0PO/r+OtSOdwjzZNowm30D+vcDYb7WAsnH4RxSf3h+pfXnG7UpqT9DpG96ztufrPEJUG08NnWu/h8avblOaEndjQAAAABJRU5ErkJggg==';
 const GRACE = (CFG.graceMinutes ?? 5) * 60000;
 const FORGOT = (CFG.forgotMinutes ?? 30) * 60000;
@@ -913,12 +915,27 @@ class OneDriveStore {
     this.account = acc; this.label = 'OneDrive · ' + acc.username;
     if (!this.cfg.driveId || !this.cfg.folderId) { this.needsSetup = true; return; }
     this.base = `/drives/${this.cfg.driveId}/items/${this.cfg.folderId}`;
+    progress('Opening the AuxBoard folder…');
+    await this.check();
     setInterval(() => this.poll(), Math.max(3, CFG.pollSeconds || 5) * 1000);
   }
   msSignIn() { return new Promise((res, rej) => { const b = $('#ms-signin'); const go = () => this.msal.loginPopup({ scopes: this.scopes }).then(r => res(r.account), rej); if (b) { b.hidden = false; b.onclick = go; } else go(); }); }
   async token() { try { return (await this.msal.acquireTokenSilent({ scopes: this.scopes, account: this.account })).accessToken; } catch (e) { return (await this.msal.acquireTokenPopup({ scopes: this.scopes })).accessToken; } }
   async g(path, opt = {}) { const t = await this.token(); return fetch('https://graph.microsoft.com/v1.0' + path, Object.assign({}, opt, { headers: Object.assign({ Authorization: 'Bearer ' + t }, opt.headers || {}) })); }
-  async meta(name) { const r = await this.g(`${this.base}:/${name}`); if (r.status === 404) return null; if (!r.ok) throw new Error('OneDrive returned ' + r.status + ' for ' + name); return r.json(); }
+  async meta(name) {
+    const r = await this.g(`${this.base}:/${name}`); if (r.status === 404) return null;
+    if (!r.ok) { let msg = ''; try { const j = await r.json(); msg = (j.error && (j.error.code + ': ' + j.error.message)) || ''; } catch (x) { } const e = new Error(`OneDrive returned ${r.status} for ${name}${msg ? ' (' + msg + ')' : ''}`); e.status = r.status; throw e; }
+    return r.json();
+  }
+  async check() {
+    const r = await this.g(this.base); if (r.ok) return;
+    let msg = ''; try { const j = await r.json(); msg = j.error ? j.error.code + ': ' + j.error.message : ''; } catch (x) { }
+    const why = r.status === 404 ? 'The AuxBoard folder was not found, or it has not been shared with ' + this.account.username + '. Ask the folder owner to share it with you (Can edit).'
+      : r.status === 403 ? 'Your account (' + this.account.username + ') does not have access to the AuxBoard folder. Ask the folder owner to share it with you (Can edit).'
+      : r.status === 401 ? 'Microsoft sign-in expired or the app permissions were not approved. Reload the page and sign in again.'
+      : 'OneDrive answered with an error.';
+    throw new Error(why + ' [' + r.status + (msg ? ' · ' + msg : '') + ']');
+  }
   async read(name) { const m = await this.meta(name); if (!m) return null; const r = await fetch(m['@microsoft.graph.downloadUrl']); return { data: await r.json(), etag: m.eTag }; }
   async write(name, data, etag) {
     const h = { 'Content-Type': 'application/json' }; if (etag) h['If-Match'] = etag; else h['If-None-Match'] = '*';
@@ -949,7 +966,7 @@ class OneDriveStore {
       if (!m) { if (!w.data) { w.data = w.init(); w.cbs.forEach(cb => cb(w.data)); } }
       else if (m.eTag !== w.etag) { const r = await fetch(m['@microsoft.graph.downloadUrl']); this.deliver(name, await r.json(), m.eTag); }
       setSync('ok', 'Synced ' + hm(Date.now()));
-    } catch (e) { console.warn(e); setSync('err', 'OneDrive unreachable'); }
+    } catch (e) { console.warn(e); setSync('err', 'OneDrive unreachable'); if (w.data == null && S.screen === 'splash') renderFatal(e); }
   }
   deliver(name, data, etag) { const w = this.watch.get(name); if (!w) return; w.data = data; w.etag = etag; w.cbs.forEach(cb => cb(data)); }
   poll() { for (const n of this.watch.keys()) this.refresh(n); }
@@ -1098,9 +1115,9 @@ function doRender(all = true) {
   renderView(); renderLayer(true); tick();
 }
 
-function renderSplash(msg) { S.screen = 'splash'; app.innerHTML = `<div class="splash"><div class="splash-box">${markHTML('lg')}<div class="brand"><span>Aux<b>Board</b></span></div><div class="spin-row"><i></i><i></i><i></i></div><p class="muted" id="splash-msg">${esc(msg)}</p><button class="btn primary" id="ms-signin" hidden>Sign in with Microsoft</button></div></div>`; }
+function renderSplash(msg) { S.screen = 'splash'; app.innerHTML = `<div class="splash"><div class="splash-box">${markHTML('lg')}<div class="brand"><span>Aux<b>Board</b></span></div><div class="spin-row"><i></i><i></i><i></i></div><p class="muted" id="splash-msg">${esc(msg)}</p><button class="btn primary" id="ms-signin" hidden>Sign in with Microsoft</button><p class="hint">Version ${APP_VERSION}</p></div></div>`; }
 function setSplash(msg) { const el = $('#splash-msg'); if (el) el.textContent = msg; }
-function renderFatal(e) { S.screen = 'fatal'; app.innerHTML = `<div class="splash"><div class="splash-box">${markHTML('lg')}<h2>AuxBoard could not start</h2><p class="muted">${esc(e && e.message || e)}</p><button class="btn" onclick="location.reload()">Reload</button></div></div>`; }
+function renderFatal(e) { S.screen = 'fatal'; app.innerHTML = `<div class="splash"><div class="splash-box">${markHTML('lg')}<h2>AuxBoard could not start</h2><p class="muted" style="user-select:text">${esc(e && e.message || e)}</p><button class="btn" onclick="location.reload()">Reload</button><p class="hint">Version ${APP_VERSION}</p></div></div>`; }
 
 /* ---------- setup (empty store) ---------- */
 function renderSetup() {
@@ -1120,6 +1137,7 @@ function renderSetup() {
       <div class="checks" id="sa-checks">${pwChecks('').map(c => `<div>${c[0]}</div>`).join('')}</div>
       <div class="err" id="sa-err"></div>
       <div><button class="btn" type="submit">Create admin account</button></div></div></form>
+    <p class="hint" style="margin:0">Version ${APP_VERSION}</p>
   </div></div>`;
   $('#sa-pw').addEventListener('input', e => { $('#sa-checks').innerHTML = pwChecks(e.target.value).map(c => `<div class="${c[1] ? 'ok' : ''}">${c[0]}</div>`).join(''); });
   $('#setup-admin').addEventListener('submit', async e => {
@@ -1518,8 +1536,8 @@ function viewStaff() {
     ${projectsPanel()}
     <section class="panel"><div class="panel-h"><div class="filters grow" data-scope="sf"><input class="inp" type="search" data-f="q" placeholder="Search name, ID or username" value="${esc(f.q)}" aria-label="Search staff">
       <select class="sel" data-f="role" aria-label="Role"><option value="">All roles</option>${Object.keys(ROLE).map(r => `<option value="${r}" ${f.role === r ? 'selected' : ''}>${ROLE[r]}</option>`).join('')}</select>
-      <select class="sel" data-f="dept" aria-label="Department"><option value="">All departments</option>${DEPTS.map(d => `<option ${f.dept === d ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></div>
-      <button class="btn sm" data-act="export-staff">${ICON.xlsx}Export</button><button class="btn sm primary" data-act="staff-new">Add staff</button></div>
+      <select class="sel" data-f="dept" aria-label="Department"><option value="">All departments</option>${deptList().map(d => `<option ${f.dept === d ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></div>
+      <button class="btn sm" data-act="export-staff">${ICON.xlsx}Export</button><button class="btn sm" data-act="staff-bulk">${ICON.upload}Bulk add or update</button><button class="btn sm primary" data-act="staff-new">Add staff</button></div>
       <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Staff</th><th>Username</th><th>Role</th><th>Project</th><th>Department</th><th>Team</th><th>Reports to</th><th>Shift</th><th>Account</th><th></th></tr></thead><tbody>
       ${list.map(s => { const tl = S.byId[s.tl] || S.byId[s.mgr]; const locked = s.lock && s.lock > Date.now();
         return `<tr><td><div class="who"><span class="avatar">${esc(initials(s.name))}</span><button data-act="staff-edit" data-id="${s.id}">${esc(s.name)}<small>${s.id} · ${esc(s.pos)}</small></button></div></td>
@@ -1543,7 +1561,7 @@ function renderLayer(soft) {
   if (soft && S.modal) return;
   let h = '';
   if (S.drawer) h += `<div class="scrim" data-act="close-drawer"></div><aside class="drawer" role="dialog" aria-label="Staff record">${drawerHTML()}</aside>`;
-  if (S.modal) h += `<div class="scrim" data-act="close-modal"></div><div class="modal" role="dialog" aria-modal="true">${modalHTML()}</div>`;
+  if (S.modal) h += `<div class="scrim" data-act="close-modal"></div><div class="modal ${['staffbulk', 'upload'].includes(S.modal.type) ? 'wide' : ''}" role="dialog" aria-modal="true">${modalHTML()}</div>`;
   L.innerHTML = h;
   if (S.modal) wireModal();
 }
@@ -1603,7 +1621,7 @@ function fromHM(dateKey, v) { return v ? G.atTime(dateKey, v) : null; }
 
 /* ---------- modals ---------- */
 function openModal(m) { S.modal = m; renderLayer(); }
-function closeModal() { if (S.modal && S.modal.forced) return; S.modal = null; renderLayer(); }
+function closeModal() { if (S.modal && S.modal.forced) return; if (S.modal && S.modal.type === 'staffbulk' && S.modal.creds && S.modal.creds.length && !S.modal.warned) { S.modal.warned = true; toast('Download the password sheet first. The temporary passwords cannot be shown again. Close once more to skip.', true); return; } S.modal = null; renderLayer(); }
 function modalHTML() {
   const m = S.modal;
   if (m.type === 'password') return `<div class="modal-h"><h2>${m.forced ? 'Set a new password' : 'Change password'}</h2>${m.forced ? '' : '<button class="x" data-act="close-modal" aria-label="Close">×</button>'}</div>
@@ -1626,9 +1644,9 @@ function modalHTML() {
       <div class="field"><label for="sf-name">Full name</label><input class="inp" id="sf-name" value="${esc(s.name || '')}" required></div>
       <div class="field"><label for="sf-user">Username</label><input class="inp" id="sf-user" value="${esc(s.user || '')}" required autocomplete="off"></div>
       <div class="field"><label for="sf-role">Access level</label><select class="sel" id="sf-role">${Object.keys(ROLE).map(r => `<option value="${r}" ${s.role === r ? 'selected' : ''}>${ROLE[r]}</option>`).join('')}</select></div>
-      <div class="field"><label for="sf-pos">Position</label><select class="sel" id="sf-pos">${POSITIONS.map(p => `<option ${s.pos === p ? 'selected' : ''}>${p}</option>`).join('')}</select></div>
+      <div class="field"><label for="sf-pos">Position</label><select class="sel" id="sf-pos">${posList().map(p => `<option ${s.pos === p ? 'selected' : ''}>${esc(p)}</option>`).join('')}</select></div>
       <div class="field"><label for="sf-proj">Project</label><select class="sel" id="sf-proj"><option value="">No project</option>${projectList().map(p => `<option ${s.proj === p.name ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select></div>
-      <div class="field"><label for="sf-dept">Department</label><select class="sel" id="sf-dept">${DEPTS.map(d => `<option ${s.dept === d ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></div>
+      <div class="field"><label for="sf-dept">Department</label><select class="sel" id="sf-dept">${deptList().map(d => `<option ${s.dept === d ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></div>
       <div class="field"><label for="sf-team">Team</label><input class="inp" id="sf-team" value="${esc(s.team || '')}" list="team-list" required><datalist id="team-list">${[...new Set(S.staff.map(x => x.team))].map(t => `<option>${esc(t)}</option>`).join('')}</datalist></div>
       <div class="field"><label for="sf-tl">Team leader</label><select class="sel" id="sf-tl"><option value="">None</option>${tls.map(t => `<option value="${t.id}" ${s.tl === t.id ? 'selected' : ''}>${esc(t.name)} · ${esc(t.team)}</option>`).join('')}</select></div>
       <div class="field"><label for="sf-mgr">Manager</label><select class="sel" id="sf-mgr"><option value="">None</option>${mgrs.map(t => `<option value="${t.id}" ${s.mgr === t.id ? 'selected' : ''}>${esc(t.name)} · ${esc(t.dept)}</option>`).join('')}</select></div>
@@ -1638,11 +1656,16 @@ function modalHTML() {
       ${m.id ? '' : `<div class="field"><label for="sf-pw">Temporary password</label><input class="inp mono" id="sf-pw" value="${tempPassword()}" required><span class="hint">They must change it at first sign-in.</span></div>`}
       <div class="err" id="sf-err"></div></div>
       <div class="modal-f"><button type="button" class="btn" data-act="close-modal">Cancel</button><button class="btn primary" type="submit">${m.id ? 'Save changes' : 'Add staff member'}</button></div></form>`; }
+  if (m.type === 'staffbulk') return bulkStaffModalHTML(m);
   return schedModalHTML(m);
 }
 function wireModal() {
   const m = S.modal;
   if (m.type === 'builder') { $('#builder').addEventListener('change', () => { readBuilder(); renderLayer(); }); }
+  if (m.type === 'staffbulk') {
+    const fi = $('#bs-file'); if (fi) fi.addEventListener('change', () => { if (fi.files[0]) readStaffFile(fi.files[0]); });
+    const dz = $('.drop'); if (dz) { dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); }); dz.addEventListener('dragleave', () => dz.classList.remove('over')); dz.addEventListener('drop', e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) readStaffFile(f); }); }
+  }
   if (m.type === 'forceout') $$('input[name="fo-when"]').forEach(x => x.addEventListener('change', () => { m.when = x.value; renderLayer(); }));
   if (m.type === 'upload') {
     const um = $('#u-month'); if (um) um.addEventListener('change', () => { m.month = um.value; });
@@ -2017,6 +2040,191 @@ async function readUploadFile(file) {
   m.reading = false; renderLayer();
 }
 
+/* ---------- bulk staff add / update ---------- */
+const deptList = () => [...new Set(DEPTS.concat(S.staff.map(s => s.dept).filter(Boolean)))];
+const posList = () => [...new Set(POSITIONS.concat(S.staff.map(s => s.pos).filter(Boolean)))];
+const ROLE_IN = { agent: 'agent', 'team leader': 'tl', teamleader: 'tl', tl: 'tl', leader: 'tl', manager: 'manager', mgr: 'manager', admin: 'admin', administrator: 'admin' };
+const BULK_COLS = [
+  ['id', /^(staff|employee|emp)?[\s_.-]*(id|no\.?|number)$/i, 'Staff ID'],
+  ['name', /^(full\s*)?name$/i, 'Full name'],
+  ['user', /^user\s*(name|id)?$|^login$/i, 'Username'],
+  ['role', /^(access(\s*level)?|role|level)$/i, 'Access level'],
+  ['pos', /^(position|designation|job\s*title|title)$/i, 'Position'],
+  ['proj', /^project$/i, 'Project'],
+  ['dept', /^(department|dept)$/i, 'Department'],
+  ['team', /^team$/i, 'Team'],
+  ['tl', /^(team\s*leader|tl|supervisor)$/i, 'Team leader'],
+  ['mgr', /^(manager|reporting\s*manager|ops\s*manager)$/i, 'Manager'],
+  ['shift', /^(usual\s*)?shift(\s*start)?$|^start\s*time$/i, 'Shift start'],
+  ['active', /^(account|status|active)$/i, 'Account'],
+  ['reset', /^(reset\s*password|new\s*password|reset)$/i, 'Reset password'],
+];
+function staffTemplateBook(people) {
+  const head = BULK_COLS.map(c => c[2]);
+  const rows = people.map(s => [s.id, s.name, s.user, ROLE[s.role], s.pos || '', s.proj || '', s.dept || '', s.team || '', (S.byId[s.tl] || {}).user || '', (S.byId[s.mgr] || {}).user || '', s.shift || '', s.active ? 'Active' : 'Inactive', '']);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, sheet([head, ...rows, ['', 'Example New Person', 'example.person', 'Agent', 'Agent', projectList()[0] ? projectList()[0].name : 'AEON', deptList()[0], 'Orchid', (S.staff.find(x => x.role === 'tl') || {}).user || 'shalini.pandian', (S.staff.find(x => x.role === 'manager') || {}).user || '', '09:00', 'Active', '']], [10, 28, 20, 13, 20, 14, 22, 14, 18, 18, 11, 10, 14]), 'Staff');
+  XLSX.utils.book_append_sheet(wb, sheet([['How to fill in this sheet'], [''], ['Column', 'What to enter'],
+    ['Staff ID', 'Leave blank for a new person (an ID is created). For an existing person keep their ID — this is how they are matched. If blank, the username is used to match.'],
+    ['Full name', 'Required for new people.'],
+    ['Username', 'Required for new people. 3–40 characters: a–z, 0–9, dot, dash, underscore. Must be unique.'],
+    ['Access level', 'Agent, Team Leader, Manager or Admin. New people default to Agent.'],
+    ['Position', 'Free text, e.g. Agent, Senior Agent, Team Leader, Operations Manager.'],
+    ['Project', 'A project name. New project names are added to the project list automatically.'],
+    ['Department', 'Department name, e.g. Customer Service.'],
+    ['Team', 'Team name, e.g. Orchid.'],
+    ['Team leader', 'The team leader’s username or Staff ID. They can be in this same sheet.'],
+    ['Manager', 'The manager’s username or Staff ID.'],
+    ['Shift start', 'Usual start time, e.g. 09:00. Used when no schedule is planned.'],
+    ['Account', 'Active or Inactive. Inactive people cannot sign in; nothing is deleted.'],
+    ['Reset password', 'Type Yes to issue a new temporary password to an existing person.'],
+    [''], ['Rules', ''],
+    ['1', 'A blank cell leaves that detail unchanged for existing people.'],
+    ['2', 'People not listed in the sheet are not changed or removed.'],
+    ['3', 'Every new person, and every “Reset password = Yes”, gets a temporary password they must change at first sign-in. You download them once, after saving.'],
+    ['4', 'Delete the example row before uploading, or leave it — rows named “Example New Person” are ignored.'],
+  ], [16, 110]), 'How to fill');
+  return wb;
+}
+function bulkRef(v, byUser, byId, fileUsers) {
+  const k = String(v).trim(); if (!k) return { none: true };
+  const s = byId[k.toUpperCase()] || byUser[k.toLowerCase()];
+  if (s) return { id: s.id }; if (fileUsers.has(k.toLowerCase())) return { pending: k.toLowerCase() };
+  return { err: true };
+}
+function parseStaffUpload(wb) {
+  const name = wb.SheetNames.find(n => /staff|roster|employee|people/i.test(n)) || wb.SheetNames[0];
+  const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, raw: false, defval: '' });
+  const res = { sheet: name, adds: [], updates: [], unchanged: 0, errors: [], newProjects: new Set(), resets: 0 };
+  let hr = -1; for (let r = 0; r < Math.min(12, rows.length) && hr < 0; r++) { const hits = rows[r].filter(h => BULK_COLS.some(c => c[1].test(String(h).trim()))).length; if (hits >= 3) hr = r; }
+  if (hr < 0) { res.fatal = 'No header row was found. The first rows need column names such as Staff ID, Full name, Username, Access level. Download the template to see the layout.'; return res; }
+  const col = {}; rows[hr].forEach((h, i) => { const c = BULK_COLS.find(c => c[1].test(String(h).trim())); if (c && !(c[0] in col)) col[c[0]] = i; });
+  if (!('user' in col) && !('id' in col)) { res.fatal = 'The sheet needs a Staff ID or Username column so people can be matched.'; return res; }
+  const byId = {}, byUser = {}; S.staff.forEach(s => { byId[s.id.toUpperCase()] = s; byUser[s.user.toLowerCase()] = s; });
+  const projects = new Set(projectList().map(p => p.name.toLowerCase()));
+  const lines = [];
+  for (let r = hr + 1; r < rows.length; r++) {
+    const row = rows[r]; const get = k => k in col ? String(row[col[k]] ?? '').trim() : '';
+    const v = {}; BULK_COLS.forEach(c => v[c[0]] = get(c[0]));
+    if (!Object.values(v).some(Boolean) || /^example new person$/i.test(v.name)) continue;
+    lines.push({ r: r + 1, v });
+  }
+  const fileUsers = new Set(lines.map(l => l.v.user.toLowerCase()).filter(Boolean));
+  const seenUser = {}, seenId = {}; let nextNo = S.staff.reduce((a, x) => Math.max(a, parseInt(x.id.replace(/\D/g, ''), 10) || 0), 0);
+  const err = (l, who, field, val, msg) => { if (res.errors.length < 300) res.errors.push([l.r, who, field, val, msg]); };
+  for (const l of lines) {
+    const v = l.v; let cur = v.id ? byId[v.id.toUpperCase()] : null;
+    if (v.id && !cur && v.user && byUser[v.user.toLowerCase()]) { err(l, v.id, 'Staff ID', v.id, `Staff ID not found, but username ${v.user} belongs to ${byUser[v.user.toLowerCase()].id}. Fix the ID or clear it.`); continue; }
+    if (!cur && !v.id && v.user) cur = byUser[v.user.toLowerCase()] || null;
+    if (v.id && !cur) { err(l, v.id, 'Staff ID', v.id, 'No staff member has this ID. Leave Staff ID blank to add a new person.'); continue; }
+    const who = cur ? cur.id : (v.user || v.name || 'new row');
+    const key = cur ? cur.id : 'new:' + v.user.toLowerCase();
+    if (seenId[key]) { err(l, who, '', '', `This person also appears on row ${seenId[key]}. Keep one row per person.`); continue; } seenId[key] = l.r;
+    const p = {}; let bad = false;
+    const set = (k, val) => { if (!cur || (cur[k] ?? '') !== val) p[k] = val; };
+    if (v.name) set('name', v.name); else if (!cur) { err(l, who, 'Full name', '', 'Full name is required for a new person.'); bad = true; }
+    if (v.user) {
+      const u = v.user.toLowerCase();
+      if (!/^[a-z0-9._-]{3,40}$/.test(u)) { err(l, who, 'Username', v.user, 'Use 3–40 characters: a–z, 0–9, dot, dash or underscore.'); bad = true; }
+      else if (byUser[u] && byUser[u] !== cur) { err(l, who, 'Username', v.user, `Already used by ${byUser[u].name} (${byUser[u].id}).`); bad = true; }
+      else if (seenUser[u]) { err(l, who, 'Username', v.user, `Also used on row ${seenUser[u]}.`); bad = true; }
+      else { seenUser[u] = l.r; set('user', u); }
+    } else if (!cur) { err(l, who, 'Username', '', 'Username is required for a new person.'); bad = true; }
+    if (v.role) { const rk = ROLE_IN[v.role.toLowerCase().replace(/\s+/g, ' ')]; if (!rk) { err(l, who, 'Access level', v.role, 'Use Agent, Team Leader, Manager or Admin.'); bad = true; } else { if (cur && cur.id === S.me.id && rk !== 'admin') { err(l, who, 'Access level', v.role, 'You cannot remove your own admin access.'); bad = true; } else set('role', rk); } }
+    else if (!cur) p.role = 'agent';
+    if (v.pos) set('pos', v.pos); else if (!cur) p.pos = { agent: 'Agent', tl: 'Team Leader', manager: 'Operations Manager', admin: 'WFM Analyst' }[p.role || 'agent'];
+    if (v.proj) { const known = projectList().find(x => x.name.toLowerCase() === v.proj.toLowerCase()); const pn = known ? known.name : v.proj; if (!known && !projects.has(pn.toLowerCase())) res.newProjects.add(pn); set('proj', pn); }
+    if (v.dept) { const d = deptList().find(x => x.toLowerCase() === v.dept.toLowerCase()) || v.dept; set('dept', d); } else if (!cur) p.dept = '';
+    if (v.team) set('team', v.team); else if (!cur) p.team = '';
+    for (const [k, label] of [['tl', 'Team leader'], ['mgr', 'Manager']]) {
+      if (!v[k]) continue; const ref = bulkRef(v[k], byUser, byId, fileUsers);
+      if (ref.err) { err(l, who, label, v[k], 'Not found. Use the username or Staff ID of someone already in AuxBoard or in this sheet.'); bad = true; }
+      else if (ref.id) { if (cur && ref.id === cur.id) { err(l, who, label, v[k], 'A person cannot report to themselves.'); bad = true; } else set(k, ref.id); }
+      else p['_' + k] = ref.pending;
+    }
+    if (v.shift) { const sp = parseShift(v.shift); if (!sp.val || SCODES[sp.val] || sp.val.includes('-')) { err(l, who, 'Shift start', v.shift, 'Use a start time such as 09:00.'); bad = true; } else set('shift', sp.val); } else if (!cur) p.shift = '09:00';
+    if (v.active) { const a = /^(active|yes|y|1|true)$/i.test(v.active) ? true : /^(inactive|no|n|0|false|disabled?)$/i.test(v.active) ? false : null; if (a === null) { err(l, who, 'Account', v.active, 'Use Active or Inactive.'); bad = true; } else if (cur && cur.id === S.me.id && !a) { err(l, who, 'Account', v.active, 'You cannot deactivate your own account.'); bad = true; } else if (!cur || cur.active !== a) p.active = a; }
+    else if (!cur) p.active = true;
+    const reset = /^(yes|y|1|true|reset)$/i.test(v.reset);
+    if (bad) continue;
+    if (!cur) { nextNo++; res.adds.push({ r: l.r, id: 'EMP' + String(nextNo).padStart(4, '0'), p }); }
+    else if (Object.keys(p).length || reset) res.updates.push({ r: l.r, id: cur.id, p, reset });
+    else res.unchanged++;
+    if (reset && cur) res.resets++;
+  }
+  // resolve team leader / manager references to people added in this same file
+  const newByUser = {}; res.adds.forEach(a => newByUser[a.p.user] = a.id);
+  for (const x of res.adds.concat(res.updates)) for (const k of ['tl', 'mgr']) if (x.p['_' + k]) { const id = newByUser[x.p['_' + k]] || (byUser[x.p['_' + k]] || {}).id; delete x.p['_' + k]; if (id && id !== x.id) x.p[k] = id; }
+  return res;
+}
+const FIELD_LABEL = { name: 'Name', user: 'Username', role: 'Access level', pos: 'Position', proj: 'Project', dept: 'Department', team: 'Team', tl: 'Team leader', mgr: 'Manager', shift: 'Shift start', active: 'Account' };
+function fmtField(k, v) { if (k === 'role') return ROLE[v] || v; if (k === 'active') return v ? 'Active' : 'Inactive'; if (k === 'tl' || k === 'mgr') return v ? ((S.byId[v] || {}).name || v) : '—'; return v === '' || v == null ? '—' : String(v); }
+function describeChange(x, isNew) {
+  if (isNew) return `${ROLE[x.p.role]} · ${x.p.proj || 'no project'} · ${x.p.team || 'no team'}`;
+  const cur = S.byId[x.id]; const parts = Object.keys(x.p).map(k => `${FIELD_LABEL[k] || k}: ${fmtField(k, cur[k])} → ${fmtField(k, x.p[k])}`);
+  if (x.reset) parts.push('New temporary password');
+  return parts.join(' · ');
+}
+async function applyStaffUpload(res, progress) {
+  const staff = {}; const creds = []; let n = 0; const total = res.adds.length + res.resets;
+  for (const a of res.adds) {
+    const pw = tempPassword(); const salt = newSalt(); progress(`Securing passwords ${++n} of ${total}…`);
+    staff[a.id] = Object.assign({ id: a.id, hrs: 9, salt, it: 120000, hash: await pbkdf2(pw, salt, 120000), must: true, fails: 0, lock: 0, joined: today() }, a.p);
+    creds.push([a.id, a.p.name, a.p.user, pw, ROLE[a.p.role], a.p.proj || '', 'New account']);
+  }
+  for (const u of res.updates) {
+    const patch = Object.assign({}, u.p);
+    if (u.reset) { const pw = tempPassword(); const salt = newSalt(); progress(`Securing passwords ${++n} of ${total}…`); Object.assign(patch, { salt, it: 120000, hash: await pbkdf2(pw, salt, 120000), must: true, fails: 0, lock: 0 }); const s = S.byId[u.id]; creds.push([u.id, patch.name || s.name, patch.user || s.user, pw, ROLE[patch.role || s.role], patch.proj || s.proj || '', 'Password reset']); }
+    if (Object.keys(patch).length) staff[u.id] = patch;
+  }
+  progress('Saving…');
+  const body = { staff }; if (res.newProjects.size) body.projects = projectList().concat([...res.newProjects].map(p => ({ name: p, active: true })));
+  await S.store.patchRoster(body);
+  audit('Bulk staff update', `${res.adds.length} added · ${res.updates.length} updated`, `${res.file || 'file'}${res.resets ? ' · ' + res.resets + ' password resets' : ''}${res.newProjects.size ? ' · new projects: ' + [...res.newProjects].join(', ') : ''}`);
+  return creds;
+}
+function credsBook(creds) {
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, sheet([['Staff ID', 'Name', 'Username', 'Temporary password', 'Access level', 'Project', 'Reason'], ...creds], [10, 28, 20, 20, 13, 14, 16]), 'Temporary passwords');
+  XLSX.utils.book_append_sheet(wb, sheet([['Keep this file private'], [''], ['Give each person their own username and temporary password only.'], ['They must choose a new password the first time they sign in.'], ['Delete this file once everyone has signed in.'], ['Site', location.origin + location.pathname.replace(/index\.html$/i, '')]], [70, 50]), 'Read me');
+  return wb;
+}
+function bulkStaffModalHTML(m) {
+  const r = m.res;
+  if (m.creds) return `<div class="modal-h"><h2>Staff updated</h2><button class="x" data-act="close-modal" aria-label="Close">×</button></div>
+    <div class="modal-b"><div class="notice">${esc(m.done)}</div>
+      ${m.creds.length ? `<p style="margin:0"><b>${m.creds.length} temporary password${m.creds.length === 1 ? '' : 's'}</b> were created. Download them now: they are not stored anywhere and cannot be shown again.</p>
+      <div class="tbl-wrap" style="max-height:220px;overflow:auto"><table class="tbl"><thead><tr><th>Staff ID</th><th>Name</th><th>Username</th><th>Temporary password</th></tr></thead><tbody>${m.creds.slice(0, 50).map(c => `<tr><td class="mono">${esc(c[0])}</td><td>${esc(c[1])}</td><td class="mono">${esc(c[2])}</td><td class="mono" style="user-select:all">${esc(c[3])}</td></tr>`).join('')}</tbody></table></div>` : ''}</div>
+    <div class="modal-f">${m.creds.length ? `<button class="btn primary" data-act="bs-creds">${ICON.xlsx}Download password sheet</button>` : ''}<button class="btn" data-act="close-modal">Done</button></div>`;
+  return `<div class="modal-h"><h2>Bulk add or update staff</h2><button class="x" data-act="close-modal" aria-label="Close">×</button></div>
+    <div class="modal-b">
+    ${!r ? `<p style="margin:0">Download the staff sheet, edit it in Excel, then upload it here. New rows become new accounts; rows with an existing Staff ID or username update that person. You will see every change before anything is saved.</p>
+      <div><button class="btn" data-act="bs-template">${ICON.xlsx}Download staff sheet${S.project ? ' (' + esc(S.project) + ')' : ''}</button></div>
+      <label class="drop" for="bs-file"><input type="file" id="bs-file" accept=".xlsx,.xls,.csv" hidden><b>Choose a file</b><span class="hint">or drop it here · .xlsx, .xls or .csv</span></label>
+      ${m.reading ? '<div class="hint">Reading the file…</div>' : ''}${m.err ? `<div class="err">${esc(m.err)}</div>` : ''}`
+    : r.fatal ? `<div class="err">${esc(r.fatal)}</div>`
+    : `<div class="row"><b>${esc(r.file)}</b><span class="hint">Sheet “${esc(r.sheet)}”</span></div>
+      <div class="kv"><div><span>New people</span><b>${r.adds.length}</b></div><div><span>Updated</span><b>${r.updates.length}</b></div><div><span>Unchanged</span><b>${r.unchanged}</b></div>
+        <div><span>Password resets</span><b>${r.resets}</b></div><div><span>New projects</span><b style="font-size:12.5px">${r.newProjects.size ? esc([...r.newProjects].join(', ')) : '0'}</b></div><div><span>Problems</span><b class="${r.errors.length ? 'over-t' : ''}">${r.errors.length}</b></div></div>
+      ${r.errors.length ? `<div style="display:grid;gap:6px"><h3>Problems (these rows are not saved)</h3><div class="tbl-wrap" style="max-height:200px;overflow:auto"><table class="tbl"><thead><tr><th>Row</th><th>Who</th><th>Column</th><th>Value</th><th>What to fix</th></tr></thead><tbody>${r.errors.slice(0, 100).map(e => `<tr><td class="n">${e[0]}</td><td class="mono">${esc(e[1])}</td><td>${esc(e[2])}</td><td>${esc(e[3])}</td><td style="white-space:normal;min-width:220px">${esc(e[4])}</td></tr>`).join('')}</tbody></table></div></div>` : ''}
+      ${r.adds.length + r.updates.length ? `<div style="display:grid;gap:6px"><h3>Changes to save</h3><div class="tbl-wrap" style="max-height:240px;overflow:auto"><table class="tbl"><thead><tr><th>Row</th><th>Staff</th><th>Change</th></tr></thead><tbody>
+        ${r.adds.slice(0, 150).map(a => `<tr><td class="n">${a.r}</td><td><b>${esc(a.p.name)}</b><div class="hint">New · ${a.id} · ${esc(a.p.user)}</div></td><td style="white-space:normal">${esc(describeChange(a, true))}</td></tr>`).join('')}
+        ${r.updates.slice(0, 150).map(u => `<tr><td class="n">${u.r}</td><td><b>${esc(S.byId[u.id].name)}</b><div class="hint">${u.id}</div></td><td style="white-space:normal">${esc(describeChange(u, false))}</td></tr>`).join('')}
+        </tbody></table></div></div>` : '<div class="notice">Nothing in this file differs from the current staff list.</div>'}
+      ${m.saving ? `<div class="hint" id="bs-saving">${esc(m.saving)}</div>` : ''}`}
+    </div>
+    <div class="modal-f">${r && !r.fatal ? `<button class="btn" data-act="bs-again">Choose another file</button><button class="btn primary" data-act="bs-apply" ${r.adds.length + r.updates.length && !m.saving ? '' : 'disabled'}>Save ${r.adds.length + r.updates.length} change${r.adds.length + r.updates.length === 1 ? '' : 's'}</button>` : r && r.fatal ? '<button class="btn" data-act="bs-again">Choose another file</button>' : '<button class="btn" data-act="close-modal">Cancel</button>'}</div>`;
+}
+async function readStaffFile(file) {
+  const m = S.modal; m.reading = true; m.err = ''; renderLayer();
+  try {
+    if (!window.XLSX) throw new Error('The Excel library did not load. Check your connection and reload the page.');
+    const wb = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+    m.res = parseStaffUpload(wb); m.res.file = file.name;
+  } catch (e) { m.err = 'Could not read that file: ' + (e.message || e); }
+  m.reading = false; renderLayer();
+}
+
 /* ---------- exports ---------- */
 function xlDate(ms) { const d = new Date(ms); return (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()) / 86400000) + 25569; }
 const cT = ms => ms == null ? '' : { t: 'n', v: xlDate(ms) % 1, z: 'hh:mm' };
@@ -2134,6 +2342,14 @@ document.addEventListener('click', async e => {
     case 'rprange': S.rp.from = t.dataset.a; S.rp.to = t.dataset.b; S.rp.days = null; render(); break;
     case 'rpsort': { const k = t.dataset.k; if (S.rp.sort === k) S.rp.dir *= -1; else { S.rp.sort = k; S.rp.dir = k === 'name' || k === 'team' ? 1 : -1; } render(); break; }
     case 'staff-new': openModal({ type: 'staff' }); break;
+    case 'staff-bulk': openModal({ type: 'staffbulk' }); break;
+    case 'bs-template': { const people = S.staff.filter(x => !S.project || x.proj === S.project); saveWorkbook(staffTemplateBook(people), `AuxBoard_Staff_Sheet_${(S.project || 'All').replace(/\W+/g, '')}_${today()}.xlsx`); break; }
+    case 'bs-again': S.modal.res = null; S.modal.err = ''; renderLayer(); break;
+    case 'bs-apply': { const m = S.modal; const r = m.res; m.saving = 'Saving…'; renderLayer();
+      try { const creds = await applyStaffUpload(r, msg => { m.saving = msg; const el = $('#bs-saving'); if (el) el.textContent = msg; });
+        m.creds = creds; m.done = `${r.adds.length} added and ${r.updates.length} updated${r.newProjects.size ? '; new projects: ' + [...r.newProjects].join(', ') : ''}.`; m.saving = null; renderLayer(); toast('Staff list updated'); }
+      catch (x) { m.saving = null; renderLayer(); fail(x); } break; }
+    case 'bs-creds': saveWorkbook(credsBook(S.modal.creds), `AuxBoard_Temporary_Passwords_${today()}.xlsx`); S.modal.warned = true; break;
     case 'staff-edit': openModal({ type: 'staff', id }); break;
     case 'reset-pw': openModal({ type: 'reset', id }); break;
     case 'do-reset': { const s = S.byId[S.modal.id]; const pw = tempPassword(); const salt = newSalt(); const it = 120000;
@@ -2261,6 +2477,7 @@ async function boot() {
     }
     await S.store.init(setSplash);
     if (S.store.needsSetup) return renderOneDriveSetup();
+    setSplash('Loading staff list…');
     S.store.onRoster(onRoster);
     subscribeToday();
   } catch (e) { renderFatal(e); }
